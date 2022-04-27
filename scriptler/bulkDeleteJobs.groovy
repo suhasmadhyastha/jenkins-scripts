@@ -30,7 +30,7 @@ Date xDaysAgo = new Date(((long)now.time-(1000L*60*60*24*numberOfDays)))
 println "\nNow: ${now}"
 println "X days ago: ${xDaysAgo}\n"
 
-jobs = jenkins.items.findAll{job -> (job instanceof hudson.model.AbstractProject && job.disabled == true && (job.lastSuccessfulBuild?.time?.before(xDaysAgo) || job.lastSuccessfulBuild == null) && !pattern.matcher(job.name).matches()) }
+jobs = jenkins.items.findAll{job -> (job instanceof hudson.model.AbstractProject && job.disabled == false && (job.lastSuccessfulBuild?.time?.before(xDaysAgo) || job.lastSuccessfulBuild == null) && !pattern.matcher(job.name).matches()) }
 
 jobs.each { job ->
     if (job.firstBuild?.time?.after(xDaysAgo)) {
